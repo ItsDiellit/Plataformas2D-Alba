@@ -592,6 +592,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterSpeed: 6
   jumpForce: 7
+  healthPoints: 5
 --- !u!95 &618878390
 Animator:
   serializedVersion: 5
