@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     
 
     private bool isAttacking;
+   
 
     [SerializeField] private Transform attackHitBox;
     [SerializeField] private float attackRadius = 1;
@@ -44,8 +45,10 @@ public class PlayerController : MonoBehaviour
 
         if(Input.GetButtonDown("Fire1") && GroundSensor.isGrounded && !isAttacking)
         {
-            Attack();
+           Attack();
         }
+
+        
 
 
     }
@@ -55,7 +58,11 @@ public class PlayerController : MonoBehaviour
 
         if(isAttacking)
         {
+            if(horizontalInput == 0)
+            {
              characterRigidbody.velocity = new Vector2(0, characterRigidbody.velocity.y);
+
+            }
 
         }
         else
@@ -107,16 +114,29 @@ public class PlayerController : MonoBehaviour
 
     void Attack()
     {
+         if(horizontalInput == 0)
+        {
+
+         characterAnimator.SetTrigger("Attack");
+
+        }
+        else
+        
+        characterAnimator.SetTrigger("Attack2");
         StartCoroutine(AttackAnimation());
-        characterAnimator.SetTrigger("Attack");
+       
+
         
     }
+    
 
     IEnumerator AttackAnimation()
     {
         isAttacking = true;
 
+       
         yield return new WaitForSeconds(0.2f);
+
 
 
          Collider2D[] collider = Physics2D.OverlapCircleAll(attackHitBox.position, attackRadius);
@@ -139,6 +159,7 @@ public class PlayerController : MonoBehaviour
 
         isAttacking = false;
     }
+
 
     void TakeDamage()
     {
