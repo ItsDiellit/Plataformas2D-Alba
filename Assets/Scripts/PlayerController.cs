@@ -15,7 +15,12 @@ public class PlayerController : MonoBehaviour
     
     [SerializeField]private int healthPoints = 5;
 
+    
+
     private bool isAttacking;
+
+    [SerializeField] private Transform attackHitBox;
+    [SerializeField] private float attackRadius = 1;
 
     void Awake()
     {
@@ -104,12 +109,31 @@ public class PlayerController : MonoBehaviour
     {
         StartCoroutine(AttackAnimation());
         characterAnimator.SetTrigger("Attack");
-
+        
     }
 
     IEnumerator AttackAnimation()
     {
         isAttacking = true;
+
+        yield return new WaitForSeconds(0.2f);
+
+
+         Collider2D[] collider = Physics2D.OverlapCircleAll(attackHitBox.position, attackRadius);
+        foreach(Collider2D enemy in collider)
+        {
+            if(enemy.gameObject.CompareTag("Mimico"))
+            {
+                 
+                //Destroy(enemy.gameObject);
+                Rigidbody2D enemyRigidbody = enemy.GetComponent<Rigidbody2D>();
+                enemyRigidbody.AddForce(transform.right + transform.up * 2, ForceMode2D.Impulse);
+                Enemies EnemyScript = enemy.GetComponent<Enemies>();
+                EnemyScript.EnemyTakeDamage();
+            }
+        }
+
+      
 
         yield return new WaitForSeconds(0.3f);
 
@@ -137,7 +161,7 @@ public class PlayerController : MonoBehaviour
             Destroy(gameObject, 0.45f);
 
         }
-    
+
 
     void OnCollisionEnter2D(Collision2D collision)
     {
@@ -145,6 +169,12 @@ public class PlayerController : MonoBehaviour
          {
             TakeDamage();
          }
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(attackHitBox.position, attackRadius);
     }
 
    
