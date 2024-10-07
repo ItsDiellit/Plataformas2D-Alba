@@ -41,11 +41,19 @@ public class PlayerController : MonoBehaviour
         if(Input.GetButtonDown("Jump") && GroundSensor.isGrounded && !isAttacking)
         {
             Jump();
+            SoundManager.instance.PlaySFX(SoundManager.instance.jumpAudio);
         }
 
         if(Input.GetButtonDown("Fire1") && GroundSensor.isGrounded && !isAttacking)
         {
            Attack();
+           SoundManager.instance.PlaySFX(SoundManager.instance.AttackAudio);
+        }
+
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            SoundManager.instance.PlaySFX(SoundManager.instance.PauseAudio);
+            GameManager.instance.Pause();
         }
 
         
@@ -67,6 +75,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            SoundManager.instance.PlaySFX(SoundManager.instance.StepsAudio);
             characterRigidbody.velocity = new Vector2(horizontalInput * characterSpeed, characterRigidbody.velocity.y);
         }
 
@@ -111,6 +120,7 @@ public class PlayerController : MonoBehaviour
         characterAnimator.SetBool("IsJumping", true);
 
     }
+    
 
     void Attack()
     {
@@ -161,10 +171,10 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    void TakeDamage()
+    void TakeDamage(int damage)
     {
-        healthPoints--;
-       
+        healthPoints -= damage;
+       SoundManager.instance.PlaySFX(SoundManager.instance.HurtAudio);
         if(healthPoints <= 0)
         {
             Die();
@@ -178,6 +188,7 @@ public class PlayerController : MonoBehaviour
 
     void Die()
         {
+            SoundManager.instance.PlaySFX(SoundManager.instance.DeadAudio);
             characterAnimator.SetTrigger("IsDead");
             Destroy(gameObject, 0.45f);
 
@@ -188,7 +199,7 @@ public class PlayerController : MonoBehaviour
     {
          if (collision.gameObject.layer == 8)
          {
-            TakeDamage();
+            TakeDamage(1);
          }
     }
 

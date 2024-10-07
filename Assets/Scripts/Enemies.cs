@@ -35,6 +35,7 @@ public class Enemies : MonoBehaviour
 
     void EnemyDie()
         {
+            SoundManager.instance.PlaySFX(SoundManager.instance.EnemyAudio);
             Destroy(gameObject, 0.45f);
 
         }
