@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     
    
     {
-         BGMManager.instance.PlayBGM(BGMManager.instance._audioSource);
+         BGMManager.instance.PlayBGM(BGMManager.instance.BGMAudio);
         if(instance != null && instance != this)
         {
             Destroy(gameObject);

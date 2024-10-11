@@ -4,11 +4,18 @@ using UnityEngine;
 
 public class Enemies : MonoBehaviour
 {
+    private AudioSource _audioSource;
 
      [SerializeField]private int EnemyhealthPoints = 3;
     // Start is called before the first frame update
+
+    void Awake()
+    {
+        _audioSource = GetComponent<AudioSource>();
+    }
     void Start()
     {
+        SoundManager.instance.PlaySFX(_audioSource, SoundManager.instance.EnemyAudio);
 
         
     }
@@ -35,7 +42,7 @@ public class Enemies : MonoBehaviour
 
     void EnemyDie()
         {
-            SoundManager.instance.PlaySFX(SoundManager.instance.EnemyAudio);
+            SoundManager.instance.PlaySFX(_audioSource, SoundManager.instance.EnemyAudio);
             Destroy(gameObject, 0.45f);
 
         }

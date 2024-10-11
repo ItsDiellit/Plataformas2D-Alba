@@ -7,7 +7,7 @@ public class SoundManager : MonoBehaviour
     // Start is called before the first frame update
     public static SoundManager instance;
 
-    private AudioSource _audioSource;
+    public AudioSource _audioSource;
     [SerializeField] private AudioClip _coinAudio;
     [SerializeField] private AudioClip _jumpAudio;
 
@@ -25,6 +25,11 @@ public class SoundManager : MonoBehaviour
     public AudioClip EnemyAudio;
 
     public AudioClip PauseAudio;
+
+    public AudioClip GameoverAudio;
+
+    public AudioClip PauseMusicAudio;
+    
     void Awake()
     {
         if(instance != null && instance != this)
@@ -44,8 +49,8 @@ public class SoundManager : MonoBehaviour
         _audioSource.PlayOneShot(_coinAudio);
     }*/
 
-    public void PlaySFX(AudioClip clip)
+    public void PlaySFX(AudioSource source,  AudioClip clip)
     {
-        _audioSource.PlayOneShot(clip);
+        source.PlayOneShot(clip);
     }
 }

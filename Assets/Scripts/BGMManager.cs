@@ -7,7 +7,9 @@ public class BGMManager : MonoBehaviour
     // Start is called before the first frame update
     public static BGMManager instance;
 
-    private AudioSource _audioSource;
+    public AudioSource _audioSource;
+
+    public AudioClip BGMAudio;
 
     void Awake()
     {
@@ -20,6 +22,11 @@ public class BGMManager : MonoBehaviour
             instance = this;
         }
         _audioSource = GetComponent<AudioSource>();
+
+        _audioSource.loop = true;
+        _audioSource.mute = false;
+        _audioSource.volume = 1;
+
         
     }
 
@@ -27,5 +34,15 @@ public class BGMManager : MonoBehaviour
     {
         _audioSource.clip = clip;
         _audioSource.Play();
+    }
+
+    public void StopBGM()
+    {
+        _audioSource.Stop();
+    }
+
+    public void PauseBGM()
+    {
+        _audioSource.Pause();
     }
 }
