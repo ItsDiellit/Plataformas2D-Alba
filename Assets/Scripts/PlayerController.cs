@@ -46,7 +46,8 @@ public class PlayerController : MonoBehaviour
 
         if(Input.GetButtonDown("Fire1") && GroundSensor.isGrounded && !isAttacking)
         {
-           Attack();
+           //Attack();
+           StartAttack();
             SoundManager.instance.PlaySFX(SoundManager.instance._audioSource ,SoundManager.instance.AttackAudio);
         }
 
@@ -125,7 +126,7 @@ public class PlayerController : MonoBehaviour
     }
     
 
-    void Attack()
+    /*void Attack()
     {
          if(horizontalInput == 0)
         {
@@ -170,6 +171,35 @@ public class PlayerController : MonoBehaviour
 
         yield return new WaitForSeconds(0.3f);
 
+        isAttacking = false;
+    }*/
+
+
+    void StartAttack()
+    {
+        isAttacking = true;
+        characterAnimator.SetTrigger("Attack");
+    }
+
+    void Attack()
+    {
+        Collider2D[] collider = Physics2D.OverlapCircleAll(attackHitBox.position, attackRadius);
+        foreach(Collider2D enemy in collider)
+        {
+            if(enemy.gameObject.CompareTag("Mimico"))
+            {
+                 
+                //Destroy(enemy.gameObject);
+                Rigidbody2D enemyRigidbody = enemy.GetComponent<Rigidbody2D>();
+                enemyRigidbody.AddForce(transform.right + transform.up * 2, ForceMode2D.Impulse);
+                Enemies EnemyScript = enemy.GetComponent<Enemies>();
+                EnemyScript.EnemyTakeDamage();
+            }
+        }
+    }
+
+    void EndAttack()
+    {
         isAttacking = false;
     }
 
