@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
@@ -15,7 +15,12 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] GameObject _pauseCanvas;
 
+    private Animator _pausePanelAnimator;
 
+    private bool pauseAnimation;
+
+
+    [SerializeField] private Slider _healthBar;
 
     void Awake()
     
@@ -30,22 +35,36 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
         }
+
+        _pausePanelAnimator = _pauseCanvas.GetComponentInChildren<Animator>();
     }
 
     public void Pause()
     {
         if(!isPaused)
         {
+             isPaused = true;
             Time.timeScale = 0; 
-            isPaused = true;
+           
             _pauseCanvas.SetActive(true);
         }
-        else
+        else if(isPaused && !pauseAnimation)
         {
-            Time.timeScale = 1;
-            isPaused = false;
-            _pauseCanvas.SetActive(false);
+            pauseAnimation = true;
+            StartCoroutine(ClosePauseAnimation());
         }
+    }
+    IEnumerator ClosePauseAnimation()
+    {
+        _pausePanelAnimator.SetBool("Close", true);
+
+        yield return new WaitForSecondsRealtime(0.30f);
+        Time.timeScale = 1;
+        _pauseCanvas.SetActive(false);
+       
+        isPaused = false;
+
+        pauseAnimation = false;
     }
 
     public void AddCoin()
@@ -63,5 +82,20 @@ public class GameManager : MonoBehaviour
         // voins += 1; las dos cosas hacen lo mismo
     
     }
+
+    public void SetHealthBar(int _maxHealth)
+    {
+        _healthBar.maxValue = _maxHealth;
+        _healthBar.value = _maxHealth;
+    }
+
+    public void UpdateHealthBar(int health)
+    {
+        _healthBar.value = health;
+    }
    
+   public void SceneLoader(string sceneName)
+   {
+    SceneManager.LoadScene(sceneName);
+   }
 }
