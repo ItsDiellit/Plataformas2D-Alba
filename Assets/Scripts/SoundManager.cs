@@ -29,6 +29,11 @@ public class SoundManager : MonoBehaviour
     public AudioClip GameoverAudio;
 
     public AudioClip PauseMusicAudio;
+
+    public AudioClip HeartAudio;
+
+    public AudioClip ButtonAudio;
+
     
     void Awake()
     {
@@ -42,6 +47,8 @@ public class SoundManager : MonoBehaviour
         }
 
         _audioSource = GetComponent<AudioSource>();
+
+        DontDestroyOnLoad(gameObject);
     }
 
     /*public void CoinSFX()

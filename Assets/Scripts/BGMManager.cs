@@ -27,6 +27,7 @@ public class BGMManager : MonoBehaviour
         _audioSource.mute = false;
         _audioSource.volume = 1;
 
+        DontDestroyOnLoad(gameObject);
         
     }
 

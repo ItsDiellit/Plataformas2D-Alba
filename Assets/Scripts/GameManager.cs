@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
 
     private bool pauseAnimation;
 
+    [SerializeField] GameObject _victoryCanvas;
+
 
     [SerializeField] private Slider _healthBar;
 
@@ -39,6 +41,13 @@ public class GameManager : MonoBehaviour
         _pausePanelAnimator = _pauseCanvas.GetComponentInChildren<Animator>();
     }
 
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.L))
+        {
+            StartCoroutine(LoadAsync("Main Menu"));
+        }
+    }
     public void Pause()
     {
         if(!isPaused)
@@ -80,7 +89,11 @@ public class GameManager : MonoBehaviour
         stars++;
         _starText.text = stars.ToString();
         // voins += 1; las dos cosas hacen lo mismo
-    
+
+        if(stars == 5)
+        {
+            _victoryCanvas.SetActive(true);
+        }    
     }
 
     public void SetHealthBar(int _maxHealth)
@@ -97,5 +110,21 @@ public class GameManager : MonoBehaviour
    public void SceneLoader(string sceneName)
    {
     SceneManager.LoadScene(sceneName);
+   }
+
+    float progresoDeCarga;
+
+   IEnumerator LoadAsync(string sceneName)
+   {
+    AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
+
+    while (!asyncLoad.isDone)
+    {
+        if(asyncLoad.progress <= 0.9f)
+        {
+            progresoDeCarga = asyncLoad.progress;
+        }
+        yield return null;
+    }
    }
 }

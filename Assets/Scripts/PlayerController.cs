@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -244,7 +245,7 @@ public int _maxHealth {get; private set;} = 5;
             Destroy(gameObject, 0.45f);
                         SoundManager.instance.PlaySFX(SoundManager.instance._audioSource ,SoundManager.instance.GameoverAudio);
 
-
+            SceneManager.LoadScene("Game Over");
 
         }
 
