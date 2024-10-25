@@ -16,6 +16,7 @@ public class VoidDeath : MonoBehaviour
     {
          if (collision.gameObject.tag == "Player")
          {
+            BGMManager.instance.PlayBGM(BGMManager.instance.GameOver);
             SceneManager.LoadScene("Game Over");
          }
     }

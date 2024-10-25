@@ -11,6 +11,12 @@ public class BGMManager : MonoBehaviour
 
     public AudioClip BGMAudio;
 
+    public AudioClip GameOver;
+
+    public AudioClip Music;
+
+    public AudioClip MainMenu;
+
     void Awake()
     {
         if(instance != null && instance != this)
@@ -35,10 +41,12 @@ public class BGMManager : MonoBehaviour
     {
         _audioSource.clip = clip;
         _audioSource.Play();
+        
     }
 
     public void StopBGM()
     {
+        
         _audioSource.Stop();
     }
 

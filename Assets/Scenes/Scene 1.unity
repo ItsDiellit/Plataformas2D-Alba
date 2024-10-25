@@ -12254,6 +12254,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _audioSource: {fileID: 0}
   BGMAudio: {fileID: 8300000, guid: 58c68579a0a3496498f8b6d55b120048, type: 3}
+  GameOver: {fileID: 8300000, guid: a70466c342f00ba4aadaf0e407a6a528, type: 3}
+  Music: {fileID: 0}
+  MainMenu: {fileID: 8300000, guid: 265aecd07ca230f4aa0d8bda5a4ce9e5, type: 3}
 --- !u!82 &925874856
 AudioSource:
   m_ObjectHideFlags: 0
@@ -13942,7 +13945,7 @@ MonoBehaviour:
   DeadAudio: {fileID: 8300000, guid: 69dc8cfeee7411f41bfbfad0eea7f1ca, type: 3}
   EnemyAudio: {fileID: 8300000, guid: f14899a5266080a48b9257902de1d95d, type: 3}
   PauseAudio: {fileID: 8300000, guid: 96b90601216e373428a935ea5d50c5fa, type: 3}
-  GameoverAudio: {fileID: 8300000, guid: ba6467709b73d6e48993fa71b84fd5bc, type: 3}
+  GameoverAudio: {fileID: 8300000, guid: a70466c342f00ba4aadaf0e407a6a528, type: 3}
   PauseMusicAudio: {fileID: 8300000, guid: f57feea7e277a544889699016589029a, type: 3}
   HeartAudio: {fileID: 8300000, guid: b0bf869eee7ff6a458ab6a7aa1d763a6, type: 3}
   ButtonAudio: {fileID: 0}

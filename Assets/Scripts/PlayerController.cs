@@ -242,8 +242,8 @@ public int _maxHealth {get; private set;} = 5;
         {
             SoundManager.instance.PlaySFX(SoundManager.instance._audioSource ,SoundManager.instance.DeadAudio);
             characterAnimator.SetTrigger("IsDead");
+            BGMManager.instance.PlayBGM(BGMManager.instance.GameOver);
             Destroy(gameObject, 0.45f);
-                        SoundManager.instance.PlaySFX(SoundManager.instance._audioSource ,SoundManager.instance.GameoverAudio);
 
             SceneManager.LoadScene("Game Over");
 
